@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 
 const provider = new ethers.providers.Web3Provider(ethereum);
 
@@ -11,18 +11,24 @@ export default async function addContract(
 ) {
   const buttonId = `approve-${id}`;
 
-  const container = document.getElementById('container');
+  const container = document.getElementById("container");
   container.innerHTML += createHTML(buttonId, arbiter, beneficiary, value);
 
-  contract.on('Approved', () => {
-    document.getElementById(buttonId).className = 'complete';
+  contract.on("Approved", () => {
+    document.getElementById(buttonId).className = "complete";
     document.getElementById(buttonId).innerText = "✓ It's been approved!";
+    // TODO: remove the onClick listener (can't be approved multiple times)
   });
 
-  document.getElementById(buttonId).addEventListener('click', async () => {
+  document.getElementById(buttonId).addEventListener("click", async () => {
     const signer = provider.getSigner();
     await contract.connect(signer).approve();
+    // TODO: show errors.
   });
+
+  // TODO: make Escrow contracts linkable to load it's own page based on the
+  // address.
+  // ie: http://localhost:3000/{escrow_contract_address}
 }
 
 function createHTML(buttonId, arbiter, beneficiary, value) {
