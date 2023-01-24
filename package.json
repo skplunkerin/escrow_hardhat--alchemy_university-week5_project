@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "npx hardhat compile",
     "dev": "npx hardhat node",
+    "compile": "npx hardhat compile",
+    "deploy_goerli": "npx hardhat runs scripts/deploy.js --network goerli",
     "test": "npx hardhat test"
   },
   "keywords": [],
@@ -21,6 +22,7 @@
     "> 5%"
   ],
   "dependencies": {
+    "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
     "react": "^18.2.0"
   }
